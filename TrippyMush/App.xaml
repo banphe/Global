@@ -1,0 +1,123 @@
+﻿<Application x:Class="FrontEnd.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:FrontEnd"
+             xmlns:viewModel="clr-namespace:MVM.MafiaFiles.ViewModel;assembly=MVM"
+             xmlns:view="clr-namespace:FrontEnd.View"
+             xmlns:converter="clr-namespace:FrontEnd.Converters"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <viewModel:MainViewModel x:Key="MainVM"/> 
+                 <converter:BoolToYesNoConverter x:Key="boolToYesNo"/>
+            <converter:DateToStringConverter x:Key="dateToString"/>
+            <DataTemplate DataType="{x:Type viewModel:CustomersViewModel}">
+                <view:CustomersView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:WeedSalesViewModel}">
+                <view:WeedSalesView/>
+            </DataTemplate>
+
+            <SolidColorBrush x:Key="AppBackbround" Color="#272537"/>
+            <SolidColorBrush x:Key="SelectedTabkbround" Color="#22202f"/>
+            <Style x:Key="MenuButtonTheme" 
+                   BasedOn="{StaticResource {x:Type ToggleButton}}" 
+                   TargetType="{x:Type RadioButton}">
+                <Style.Setters>
+                    <Setter Property="Template" >
+                        <Setter.Value>
+                            <ControlTemplate TargetType="RadioButton" >
+                                <Grid VerticalAlignment="Stretch"
+                                      HorizontalAlignment="Stretch"
+                                      Background="{TemplateBinding Background}">
+                                    <TextBlock Text="{TemplateBinding Property=Content}"
+                                               VerticalAlignment="Center"
+                                               Margin="50,0,0,0"
+                                               FontSize="14"
+                                               Foreground="White" 
+                                               FontFamily="/Fonts/#Poppins"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                </Style.Setters>
+                <Style.Triggers>
+                    <Trigger Property="IsChecked" Value="True">
+                        <Setter Property="Background" Value="#22202f"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Background" Value="#1c2024"></Setter>
+                <Setter Property="FontFamily" Value="/Fonts/#Poppins"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="Margin" Value="10,10,0,0"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="BorderThickness" Value="0"></Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Border Background="{TemplateBinding Background}"
+                                    Padding="12,6,12,6"
+                                    CornerRadius="10"
+                                    BorderBrush="Black"
+                                    BorderThickness="0">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#0054b4" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style TargetType="{x:Type TextBlock}" x:Key="logo">
+                <Setter Property="Text" Value="TrippyMash"></Setter>
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="FontSize" Value="20"></Setter>
+                <Setter Property="Margin" Value="20,0,0,0"></Setter>
+                <Setter Property="FontFamily" Value="/Fonts/#Poppins"></Setter>
+            </Style>
+            <Style TargetType="{x:Type DataGrid}">
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="#333940" />
+                <Setter Property="RowHeaderWidth" Value="0"/>
+                <Setter Property="MaxHeight" Value="380"/>
+                <Setter Property="MinHeight" Value="380"/>
+                <Setter Property="AutoGenerateColumns" Value="False"/>
+                <Setter Property="GridLinesVisibility" Value="None"/>
+            </Style>
+            <Style  TargetType="{x:Type DataGridColumnHeader}">
+                <Setter Property="Background" Value="#333340" />
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="17"/>
+                <Setter Property="Height" Value="33" />
+                <Setter Property="VerticalContentAlignment" Value="Center" />
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            </Style>
+            <Style TargetType="{x:Type DataGridRow}">
+                <Setter Property="Background" Value="#788594"/>
+                <Setter Property="Foreground" Value="black" />
+                <Setter Property="BorderBrush" Value="Black" />
+                <Setter Property="BorderThickness" Value="0 1 0 0"/>
+                <Setter Property="Height" Value="26" />
+            </Style>
+            <Style TargetType="{x:Type DataGridCell}">
+                <Setter Property="FrameworkElement.Margin" Value="0,0,0,0"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FrameworkElement.VerticalAlignment" Value="Center"/>
+            </Style>
+
+        
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

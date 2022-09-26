@@ -1,0 +1,250 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl" Namespace="LiveModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005">
+        <EntityContainer Name="LiveModelTargetContainer" >
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="LiveModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="LiveModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WeedSales" EntityType="LiveModel.WeedSale" />
+          <EntitySet Name="Customers" EntityType="LiveModel.Customer" />
+          <AssociationSet Name="CustomerWeedSale" Association="LiveModel.CustomerWeedSale">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="WeedSale" EntitySet="WeedSales" />
+          </AssociationSet>
+          <EntitySet Name="Strains" EntityType="LiveModel.Strain" />
+          <AssociationSet Name="StrainWeedSale" Association="LiveModel.StrainWeedSale">
+            <End Role="Strain" EntitySet="Strains" />
+            <End Role="WeedSale" EntitySet="WeedSales" />
+          </AssociationSet>
+          <EntitySet Name="CompanyPurchases" EntityType="LiveModel.CompanyPurchase" />
+          <EntitySet Name="PurchaseTypes" EntityType="LiveModel.PurchaseType" />
+          <AssociationSet Name="CompanyPurchasePurchaseType" Association="LiveModel.CompanyPurchasePurchaseType">
+            <End Role="CompanyPurchase" EntitySet="CompanyPurchases" />
+            <End Role="PurchaseType" EntitySet="PurchaseTypes" />
+          </AssociationSet>
+          <EntitySet Name="CapitalInvestments" EntityType="LiveModel.CapitalInvestment" />
+          <EntitySet Name="Salaries" EntityType="LiveModel.Salary" />
+          <EntitySet Name="Bilans" EntityType="LiveModel.Bilans" />
+          <AssociationSet Name="BilansSalary" Association="LiveModel.BilansSalary">
+            <End Role="Bilans" EntitySet="Bilans" />
+            <End Role="Salary" EntitySet="Salaries" />
+          </AssociationSet>
+          <AssociationSet Name="BilansWeedSale" Association="LiveModel.BilansWeedSale">
+            <End Role="Bilans" EntitySet="Bilans" />
+            <End Role="WeedSale" EntitySet="WeedSales" />
+          </AssociationSet>
+          <AssociationSet Name="BilansCompanyPurchase" Association="LiveModel.BilansCompanyPurchase">
+            <End Role="Bilans" EntitySet="Bilans" />
+            <End Role="CompanyPurchase" EntitySet="CompanyPurchases" />
+          </AssociationSet>
+          <AssociationSet Name="BilansCapitalInvestment" Association="LiveModel.BilansCapitalInvestment">
+            <End Role="Bilans" EntitySet="Bilans" />
+            <End Role="CapitalInvestment" EntitySet="CapitalInvestments" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="WeedSale">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Qunatity" Type="String" Nullable="false" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="LiveModel.CustomerWeedSale" FromRole="WeedSale" ToRole="Customer" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Strain" Relationship="LiveModel.StrainWeedSale" FromRole="WeedSale" ToRole="Strain" />
+          <Property Name="StrainId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Bilan" Relationship="LiveModel.BilansWeedSale" FromRole="WeedSale" ToRole="Bilans" />
+          <Property Name="BilansId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="WeedSales" Relationship="LiveModel.CustomerWeedSale" FromRole="Customer" ToRole="WeedSale" />
+        </EntityType>
+        <Association Name="CustomerWeedSale">
+          <End Type="LiveModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="LiveModel.WeedSale" Role="WeedSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeedSale">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Strain">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="IsAuto" Type="String" Nullable="false" />
+          <NavigationProperty Name="WeedSales" Relationship="LiveModel.StrainWeedSale" FromRole="Strain" ToRole="WeedSale" />
+        </EntityType>
+        <Association Name="StrainWeedSale">
+          <End Type="LiveModel.Strain" Role="Strain" Multiplicity="0..1" />
+          <End Type="LiveModel.WeedSale" Role="WeedSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Strain">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeedSale">
+              <PropertyRef Name="StrainId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CompanyPurchase">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Quantity" Type="String" Nullable="false" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <NavigationProperty Name="PurchaseTypes" Relationship="LiveModel.CompanyPurchasePurchaseType" FromRole="CompanyPurchase" ToRole="PurchaseType" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Amount" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bilan" Relationship="LiveModel.BilansCompanyPurchase" FromRole="CompanyPurchase" ToRole="Bilans" />
+          <Property Name="BilansId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PurchaseType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PurchaseName" Type="String" Nullable="false" />
+          <NavigationProperty Name="CompanyPurchase" Relationship="LiveModel.CompanyPurchasePurchaseType" FromRole="PurchaseType" ToRole="CompanyPurchase" />
+          <Property Name="CompanyPurchaseId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="CompanyPurchasePurchaseType">
+          <End Type="LiveModel.CompanyPurchase" Role="CompanyPurchase" Multiplicity="1" />
+          <End Type="LiveModel.PurchaseType" Role="PurchaseType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CompanyPurchase">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PurchaseType">
+              <PropertyRef Name="CompanyPurchaseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CapitalInvestment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="Amount" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bilan" Relationship="LiveModel.BilansCapitalInvestment" FromRole="CapitalInvestment" ToRole="Bilans" />
+          <Property Name="BilansId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Salary">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="String" Nullable="false" />
+          <Property Name="Amount" Type="String" Nullable="false" />
+          <NavigationProperty Name="Bilan" Relationship="LiveModel.BilansSalary" FromRole="Salary" ToRole="Bilans" />
+          <Property Name="BilansId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bilans">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Salaries" Relationship="LiveModel.BilansSalary" FromRole="Bilans" ToRole="Salary" />
+          <NavigationProperty Name="WeedSales" Relationship="LiveModel.BilansWeedSale" FromRole="Bilans" ToRole="WeedSale" />
+          <NavigationProperty Name="CompanyPurchases" Relationship="LiveModel.BilansCompanyPurchase" FromRole="Bilans" ToRole="CompanyPurchase" />
+          <NavigationProperty Name="CapitalInvestments" Relationship="LiveModel.BilansCapitalInvestment" FromRole="Bilans" ToRole="CapitalInvestment" />
+          <Property Name="Property1" Type="String" Nullable="false" />
+        </EntityType>
+        <Association Name="BilansSalary">
+          <End Type="LiveModel.Bilans" Role="Bilans" Multiplicity="1" />
+          <End Type="LiveModel.Salary" Role="Salary" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bilans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Salary">
+              <PropertyRef Name="BilansId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BilansWeedSale">
+          <End Type="LiveModel.Bilans" Role="Bilans" Multiplicity="1" />
+          <End Type="LiveModel.WeedSale" Role="WeedSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bilans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WeedSale">
+              <PropertyRef Name="BilansId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BilansCompanyPurchase">
+          <End Type="LiveModel.Bilans" Role="Bilans" Multiplicity="1" />
+          <End Type="LiveModel.CompanyPurchase" Role="CompanyPurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bilans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanyPurchase">
+              <PropertyRef Name="BilansId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="BilansCapitalInvestment">
+          <End Type="LiveModel.Bilans" Role="Bilans" Multiplicity="1" />
+          <End Type="LiveModel.CapitalInvestment" Role="CapitalInvestment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bilans">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CapitalInvestment">
+              <PropertyRef Name="BilansId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="LiveModel" />
+        <Alias Key="Target" Value="LiveModel.Store" />
+        <EntityContainerMapping CdmEntityContainer="LiveModelContainer" StorageEntityContainer="LiveModelTargetContainer">
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
