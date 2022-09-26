@@ -1,5 +1,5 @@
 ﻿using System.Windows.Controls;
-namespace FrontEnd.View
+namespace TrippyMush.MVVM.View
 {
     public partial class CustomersView : UserControl
     {

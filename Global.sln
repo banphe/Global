@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVM", "MVM\MVM.csproj", "{F7A6440F-772B-4488-B736-71D38F536FC4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassFactory", "ClassFactory\ClassFactory.csproj", "{374F15C0-7F8A-4DF1-A021-08D62753EE67}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopupApp", "PopupApp\PopupApp.csproj", "{70197839-A2E7-490C-8D05-073A832A237F}"
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F7A6440F-772B-4488-B736-71D38F536FC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7A6440F-772B-4488-B736-71D38F536FC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7A6440F-772B-4488-B736-71D38F536FC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7A6440F-772B-4488-B736-71D38F536FC4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{374F15C0-7F8A-4DF1-A021-08D62753EE67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{374F15C0-7F8A-4DF1-A021-08D62753EE67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{374F15C0-7F8A-4DF1-A021-08D62753EE67}.Release|Any CPU.ActiveCfg = Release|Any CPU
