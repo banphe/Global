@@ -1,0 +1,42 @@
+﻿<Window x:Class="MainWindow"
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:local="clr-namespace:entityWriter"
+mc:Ignorable="d"
+       xmlns:self="clr-namespace:entityWriter"
+Title="MainWindow" Height="778" Width="1192">
+   
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.67*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Background="Aqua" Margin="10,10,10,0">
+            <Button Name="btnAddEntity" 
+                    Content="Add Entity" 
+                    Click="Button_Click">
+              
+            </Button>
+            <ComboBox Name="cmbFiles" 
+                      ItemsSource="{Binding Directories}" 
+                      DisplayMemberPath="FileName" 
+                      SelectedValuePath="Directory"
+                      >
+             
+            </ComboBox>
+            <Button Name="btnSave" Content="Save" Click="Button_Click" Style="{StaticResource NiceText }"/>
+            <Button Name="btnLoad" Content="Load" Click="Button_Click" />
+        </StackPanel>
+
+
+        <Canvas Grid.Row="1" Name="Container" AllowDrop="True" DragOver="Canvas_DragOver" Drop="Canvas_Drop" Background="Gray" Margin="10,10,10,10">
+            <local:MovableCanvas Background="Red" Canvas.Top="100" Canvas.Left="100"/>
+        </Canvas>
+
+
+
+    </Grid>
+</Window>
